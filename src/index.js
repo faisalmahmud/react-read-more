@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class ReadMore extends React.Component {
+class ReadMore extends React.Component {
   constructor({ initialHeight }) {
     super();
     this.state = { initialHeight, maxHeight: initialHeight };
@@ -34,15 +34,16 @@ export default class ReadMore extends React.Component {
   }
 
   render() {
-    let { children, readMore, blurStyle } = this.props;
+    let { children, readMore, blurStyle, overhangSize } = this.props;
     let { maxHeight, initialHeight, hideReadMore } = this.state;
     let open = maxHeight !== initialHeight;
 
     return (
       <React.Fragment>
         <div
+          className="readmore container"
           style={{
-            maxHeight: open ? maxHeight : maxHeight - 160,
+            maxHeight: open ? maxHeight : maxHeight - overhangSize,
             transition: 'max-height .5s ease',
             position: 'relative',
             overflow: 'hidden',
@@ -52,13 +53,14 @@ export default class ReadMore extends React.Component {
           {children}
           {hideReadMore ? null : (
             <div
+              className="readmore overhang"
               style={{
                 transition: 'opacity 0.25s',
                 opacity: open ? 0 : 1,
                 backgroundImage:
                   'linear-gradient(to bottom, rgba(255, 255, 255, 0.44), #ffffff )',
                 content: '',
-                height: '160px',
+                height: `${overhangSize}px`,
                 width: '100%',
                 position: 'absolute',
                 bottom: '0',
@@ -79,3 +81,9 @@ export default class ReadMore extends React.Component {
     );
   }
 }
+
+ReadMore.defaultProps = {
+  overhangSize: 160,
+}
+
+export default ReadMore;
