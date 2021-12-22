@@ -41,7 +41,7 @@ class ReadMore extends React.Component {
     return (
       <React.Fragment>
         <div
-          className="readmore container"
+          className="readmore"
           style={{
             maxHeight: open ? maxHeight : maxHeight - overhangSize,
             transition: 'max-height .5s ease',
